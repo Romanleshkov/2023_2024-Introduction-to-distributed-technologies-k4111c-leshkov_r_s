@@ -11,8 +11,8 @@ Date of finished: 30.11.2023
 Ход лабораторной работы:
 
 1. Для начала установлены Docker и Minikube согласно документациям
-    # docker
-    # set up the docker repository
+- docker
+- set up the docker repository
     sudo apt-get update
     sudo apt-get install ca-certificates curl gnupg
     sudo install -m 0755 -d /etc/apt/keyrings
@@ -23,10 +23,10 @@ Date of finished: 30.11.2023
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
-    # install docker
+- install docker
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    # non-root user
+- non-root user
     sudo usermod -aG docker $USER
-    # boot with systemd
+- boot with systemd
     sudo systemctl enable docker.service
     sudo systemctl enable containerd.service
