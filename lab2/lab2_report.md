@@ -51,5 +51,7 @@ Date of finished: 30.11.2023
 
 Логи пода
 
-![Alt text](img/Screenshot_3.jpg)
+![Alt text](img/Screenshot_4.jpg)
 
+Схема
+![Alt text](img/Screenshot_5.jpg)
