@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lab2
+  name: lab2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lab2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lab2
+    spec:
+      containers:
+      - image: ifilyaninitmo/itdt-contained-frontend:master
+        name: itdt-contained-frontend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_USERNAME
+          value: "Roman Leshkov"
+        - name: REACT_APP_COMPANY_NAME
+          value: "ITMO"
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lab2
+  name: lab2
+spec:
+  ports:
+  - name: 80-3000
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: lab2
+  type: NodePort
+status:
+  loadBalancer: {}
