@@ -41,7 +41,7 @@ Date of finished: 30.11.2023
 #### install minikube
     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
     sudo install minikube-linux-amd64 /usr/local/bin/minikube
-#### downloda kubectl via minikube and get list of pods
+#### download kubectl via minikube and get list of pods
     minikube kubectl -- get po -A
 #### set alias
     alias kubectl="minikube kubectl --"
@@ -51,4 +51,51 @@ Date of finished: 30.11.2023
    
 ![Alt text](img/Screenshot_1.jpg)
 
-3 Написан kubernetes манифест для развертывания пода с образом HashiCorp Vault, с доступом к сервису на порту 8200
+3. Написан kubernetes манифест для развертывания пода с образом HashiCorp Vault, с доступом к сервису на порту 8200.
+
+        kubectl create deployment vault --image=vault:1.13.3 -o yaml --port=8200 --dry-run > kube/vault.yaml
+
+ Манифест - описание ресурсов(развертывание, сервисы, поды), которые должны быть созданы, как эти ресурс должны исполняться внутри кластера.
+
+ 4. Манифест дополнен созданием сервиса для доступа к подам vault через порт 8200
+
+        echo --- >> kube/vault.yaml
+        kubectl create service nodeport vault --tcp=8200:8200 -o yaml --dry-run >> kube/vault.yaml
+
+![Alt text](img/Screenshot_2.jpg)
+
+5. Применен манифест. В итоге запущен под vault и сервис vault
+
+        kubectl apply -f kube/vault.yaml 
+
+![Alt text](img/Screenshot_3.jpg)
+
+6. Для доступа сервиса вне кластера прокинут порт 8200
+
+      minikube kubectl -- port-forward service/vault --address 0.0.0.0 8200:8200
+  
+7. Для доступа к vault необходимо взять токен рута из логов пода
+
+        kubectl logs services/vault
+
+![Alt text](img/Screenshot_5.jpg)
+
+8. В браузере открыт сервис и введен токен. Доступ получен
+
+![Alt text](img/Screenshot_4.jpg)
+
+![Alt text](img/Screenshot_6.jpg)
+
+9. Кластер остановлен
+
+        minikube stop
+
+![Alt text](img/Screenshot_7.jpg)
+
+Ответы на вопросы:
+
+1. Что сейчас произошло и что сделали команды указанные ранее?
+Написан манифест с развертыванием одного пода с образом Vault и одного сервиса для доступа к кластеру через порт 8200. Применен манифест, прокинут порт для доступа к vault извне.
+
+2. Где взять токен для входа в Vault?
+Токен взят из логов
