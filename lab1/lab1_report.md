@@ -99,3 +99,7 @@ Date of finished: 30.11.2023
 
 2. Где взять токен для входа в Vault?
 Токен взят из логов
+
+Схема:
+
+![Alt text](img/Screenshot_8.jpg)
