@@ -24,3 +24,22 @@ spec:
         - containerPort: 8200
         resources: {}
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: vault
+  name: vault
+spec:
+  ports:
+  - name: 8200-8200
+    port: 8200
+    protocol: TCP
+    targetPort: 8200
+  selector:
+    app: vault
+  type: NodePort
+status:
+  loadBalancer: {}
