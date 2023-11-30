@@ -11,3 +11,7 @@ Date of finished: 30.11.2023
 Ход лабораторной работы:
 
 1. Запускается кластер minikube
+
+kubectl create configmap lab3_configmap --from-literal=REACT_APP_USERNAME="Roman Leshkov"  --from-literal=REACT_APP_COMPANY_NAME="ITMO" -o yaml --dry-run >> kube/lab3_configmap.yaml
+
+
