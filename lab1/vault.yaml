@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: vault
+  name: vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vault
+    spec:
+      containers:
+      - image: vault:1.13.3
+        name: vault
+        ports:
+        - containerPort: 8200
+        resources: {}
+status: {}
