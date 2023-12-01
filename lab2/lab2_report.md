@@ -25,9 +25,9 @@ Date of finished: 30.11.2023
         echo --- >> kube/lab2.yaml
         kubectl create service nodeport lab2 --tcp=80:3000 -o yaml --dry-run >> kube/lab2.yaml
 
-4. В манифест добавляются две переменные окружения: в файл lab2.yaml в spec.template.spec.containers.image дабаляется пункт env.
+4. В манифест добавляются две переменные окружения: в файл lab2.yaml в spec.template.spec.containers[0] дабаляется пункт env.
 
-      env:
+        env:
         - name: REACT_APP_USERNAME
           value: "Roman Leshkov"
         - name: REACT_APP_COMPANY_NAME
