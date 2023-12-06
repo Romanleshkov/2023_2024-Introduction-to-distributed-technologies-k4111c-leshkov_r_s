@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: lab3
+spec:
+  rules:
+  - host: rlesh-lab3.ru
+    http:
+      paths:
+      - backend:
+          service:
+            name: lab3
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - rlesh-lab3.ru
+    secretName: lab3-tls
+status:
+  loadBalancer: {}
