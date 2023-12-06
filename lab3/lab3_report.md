@@ -17,7 +17,7 @@ kubectl create configmap lab3-configmap --from-literal=REACT_APP_USERNAME="Roman
 kubectl create deployment lab3-replicaset --image=ifilyaninitmo/itdt-contained-frontend:master -o yaml --port=3000 -r 2 --dry-run | sed 's/Deployment/ReplicaSet/g' | sed '/strategy/d' | sed 's/resources/env:\n        - name: REACT_APP_USERNAME\n          valueFrom:\n            configMapKeyRef:\n              name: lab3-configmap\n              key: REACT_APP_USERNAME\n        - name: REACT_APP_COMPANY_NAME\n          valueFrom:\n            configMapKeyRef:\n              name: lab3-configmap\n              key: REACT_APP_COMPANY_NAME\n        resources/g' > kube/lab3-replicaset.yaml
 
 
-kubectl create service nodeport lab3-service --tcp=3000:3000 -o yaml --dry-run > kube/lab3-service.yaml
+kubectl create service nodeport lab3 --tcp=3000:3000 -o yaml --dry-run > kube/lab3-service.yaml
 
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out minikube.crt -keyout minikube.key
 
@@ -25,5 +25,15 @@ kubectl create secret tls lab3-tls --cert minikube.crt --key minikube.key --dry-
 
 minikube addons enable ingress
 
-kubectl create ingress lab3-ingress --dry-run -o yaml --rule=rlesh-lab3.ru/*=lab3-service:3000,tls=lab3-tls > kube/lab3-ingress.yaml
+kubectl create ingress lab3 --dry-run -o yaml --rule=rlesh-lab3.ru/*=lab3:3000,tls=lab3-tls > kube/lab3-ingress.yaml
+
+kubectl apply -f kube/lab3-configmap.yaml
+kubectl apply -f kube/lab3-replicaset.yaml
+kubectl apply -f kube/lab3-service.yaml
+kubectl apply -f kube/lab3-tls.yaml
+kubectl apply -f kube/lab3-ingress.yaml
+
+sudo sysctl net.ipv4.ip_unprivileged_port_start=443
+
+kubectl port-forward service/ingress-nginx-controller --address 0.0.0.0 443:443 --namespace ingress-nginx
 
