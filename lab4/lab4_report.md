@@ -124,3 +124,5 @@ Date of finished: 06.12.2023
 ![Alt text](img/Screenshot_9.jpg)
 
 Схема
+
+![Alt text](img/Screenshot_8.jpg)
