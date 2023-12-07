@@ -119,7 +119,7 @@ Date of finished: 06.12.2023
 
         kubectl exec lab4-699f7df4db-nlsq4 -- nslookup 192.168.78.129  
         kubectl exec lab4-699f7df4db-nlsq4 -- nslookup 192.168.47.0  
-        kubectl exec lab4-699f7df4db-nlsq4 -- ping 192-168-47-0.lab4.default.svc.cluster.local  
+        kubectl exec lab4-699f7df4db-nlsq4 -- ping 192-168-47-0.lab4.default.svc.cluster.local
 
 ![Alt text](img/Screenshot_9.jpg)
 
